@@ -6,11 +6,26 @@ import './App.css';
 function App() {
   const [movies,setMovies]= useState([])
 
-  const dummyMovies = () => {
-    fetch('https://swapi.py4e.com/api/films').then(response=>{
-      return response.json();
-    }).then(res=>{
-      const transformedMovies = res.results.map(movie=>{
+  // const dummyMovies = () => {
+  //   fetch('https://swapi.py4e.com/api/films').then(response=>{
+  //     return response.json();
+  //   }).then(res=>{
+  //     const transformedMovies = res.results.map(movie=>{
+  //       return {
+  //         id: movie.episode_id,
+  //         title: movie.title,
+  //         releaseDate: movie.release_date,
+  //         openingText: movie.opening_crawl
+  //       } 
+  //     })
+  //     setMovies(transformedMovies);
+  //   })
+  // }
+
+  async function dummyMovies() {
+    const response = await fetch('https://swapi.py4e.com/api/films')
+    const res = await response.json();
+    const transformedMovies = res.results.map(movie=>{
         return {
           id: movie.episode_id,
           title: movie.title,
@@ -19,7 +34,6 @@ function App() {
         } 
       })
       setMovies(transformedMovies);
-    })
   }
 
   return (
